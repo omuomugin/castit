@@ -1,0 +1,6 @@
+token: MY TOKEN
+casts:
+  - channel: hoge
+    content: fuga
+  - channel: YOYO
+    content: YESYES
