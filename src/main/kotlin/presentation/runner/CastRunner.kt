@@ -10,9 +10,9 @@ class CastRunner(
 
     override fun run(): String {
 
-        val slackMessage = SlackMessageConverter.convert(config = config)
+        val slackMessages = SlackMessageConverter.convert(config = config)
 
-        PostMessageUseCase().postMessages(slackMessage)
+        PostMessageUseCase().postMessages(slackMessages)
 
         return "Success"
     }
