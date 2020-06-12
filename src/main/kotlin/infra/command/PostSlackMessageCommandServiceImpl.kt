@@ -28,8 +28,6 @@ class PostSlackMessageCommandServiceImpl : PostSlackMessageCommandService {
                             )
                         ).awaitStringResponseResult()
 
-                        print(response)
-
                         result.fold(
                             {},
                             { error -> throw Exception("${error.message}") }
