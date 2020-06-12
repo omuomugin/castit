@@ -1,10 +1,12 @@
 package domain.usecase
 
 import domain.model.SlackMessage
-import infra.command.PostSlackMessageCommandServiceImpl
+import infra.command.PostSlackMessageCommandService
 
-class PostMessageUseCase {
+class PostMessageUseCase(
+    private val service: PostSlackMessageCommandService
+) {
     fun postMessages(messages: List<SlackMessage>) {
-        PostSlackMessageCommandServiceImpl().postMessage(messages = messages)
+        service.postMessage(messages = messages)
     }
 }

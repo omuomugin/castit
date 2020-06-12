@@ -1,6 +1,7 @@
 package presentation.runner
 
 import domain.usecase.PostMessageUseCase
+import infra.command.PostSlackMessageCommandServiceImpl
 import presentation.converter.SlackMessageConverter
 import presentation.model.Config
 
@@ -12,7 +13,7 @@ class CastRunner(
 
         val slackMessages = SlackMessageConverter.convert(config = config)
 
-        PostMessageUseCase().postMessages(slackMessages)
+        PostMessageUseCase(PostSlackMessageCommandServiceImpl()).postMessages(slackMessages)
 
         return "Success"
     }
