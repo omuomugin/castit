@@ -59,6 +59,20 @@ casts:
     content: "Office Hour Stared. Just ask me anything."
 ```
 
+Ofcourse you can create multiple yaml and use it.
+You might want to write another yaml like below.
+
+```yaml
+token: "<MY-TOKEN>"
+casts:
+  - channel: "#teamA"
+    content: "good night"
+  - channel: "#teamB"
+    content: "Finished Working. Have a good evening"
+  - channel: "#teamC"
+    content: "Office Hour Ended. Please talk to me tomorrow."
+``` 
+
 ## Run and cast (like multi cast) your messages
 
 ```shell
