@@ -12,11 +12,16 @@ import view.model.Config
 class CastCommand : CliktCommand() {
 
     private val config by option().file(mustExist = true).required()
+    private val cast: String by option(help = "cast name").required()
 
     override fun run() {
 
-        val serializedConfig = Yaml.default.parse(Config.serializer(), config.readText()).let {
-            ConfigConverter.convert(it)
+        val serializedConfig = Yaml.default.parse(Config.serializer(), config.readText()).let { config ->
+            config.casts.firstOrNull {
+                it.name == cast
+            }?.let {
+                ConfigConverter.convert(it, config.token)
+            } ?: throw Exception("No name found")
         }
 
         val runner = CastRunner(serializedConfig)

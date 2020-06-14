@@ -1,6 +1,18 @@
 token: MY TOKEN
 casts:
-  - channel: hoge
-    content: fuga
-  - channel: YOYO
-    content: YESYES
+  - name: "start"
+    messages:
+      - channel: "#teamA"
+        content: "good morning"
+      - channel: "#teamB"
+        content: "Started Working"
+      - channel: "#teamC"
+        content: "Office Hour Stared. Just ask me anything."
+  - name: "end"
+    messages:
+      - channel: "#teamA"
+        content: "good night"
+      - channel: "#teamB"
+        content: "Finished Working. Have a good evening"
+      - channel: "#teamC"
+        content: "Office Hour Ended. Please talk to me tomorrow."

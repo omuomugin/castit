@@ -31,6 +31,7 @@ Usage: cast [OPTIONS]
 
 Options:
   --config PATH
+  --cast TEXT    cast name
   -h, --help     Show this message and exit
 ```
 
@@ -51,32 +52,44 @@ You need a config file written in yaml. (other type will be supported in near fu
 ```yaml
 token: "<MY-TOKEN>"
 casts:
-  - channel: "#teamA"
-    content: "good morning"
-  - channel: "#teamB"
-    content: "Started Working"
-  - channel: "#teamC"
-    content: "Office Hour Stared. Just ask me anything."
+  - name: "start"
+    messages:
+      - channel: "#teamA"
+        content: "good morning"
+      - channel: "#teamB"
+        content: "Started Working"
+      - channel: "#teamC"
+        content: "Office Hour Stared. Just ask me anything."
 ```
 
-Ofcourse you can create multiple yaml and use it.
-You might want to write another yaml like below.
+Ofcourse you can create multiple cast type.
+You might want to write another cast type like below.
 
 ```yaml
-token: "<MY-TOKEN>"
+token: MY TOKEN
 casts:
-  - channel: "#teamA"
-    content: "good night"
-  - channel: "#teamB"
-    content: "Finished Working. Have a good evening"
-  - channel: "#teamC"
-    content: "Office Hour Ended. Please talk to me tomorrow."
+  - name: "start"
+    messages:
+      - channel: "#teamA"
+        content: "good morning"
+      - channel: "#teamB"
+        content: "Started Working"
+      - channel: "#teamC"
+        content: "Office Hour Stared. Just ask me anything."
+  - name: "end"
+    messages:
+      - channel: "#teamA"
+        content: "good night"
+      - channel: "#teamB"
+        content: "Finished Working. Have a good evening"
+      - channel: "#teamC"
+        content: "Office Hour Ended. Please talk to me tomorrow."
 ``` 
 
 ## Run and cast (like multi cast) your messages
 
 ```shell
-labelit update --token=XXXXX --repo=omuomugin/labelit --config=path/to/your/config.yaml
+castit --config=path/to/your/config.yaml --cast=start
 ```
 
 # Technical Things
