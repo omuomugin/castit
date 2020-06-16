@@ -1,7 +1,9 @@
 package infra.command
 
 import domain.model.SlackMessage
+import infra.model.response.SlackPostMessageResponse
+import kotlinx.coroutines.Deferred
 
 interface PostSlackMessageCommandService {
-    fun postMessage(messages: List<SlackMessage>)
+    fun postMessageAsync(message: SlackMessage): Deferred<SlackPostMessageResponse>
 }

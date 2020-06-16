@@ -4,38 +4,37 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
 import domain.model.SlackMessage
 import infra.converter.SlackMessageConverter
+import infra.model.exception.SlackPostFailedException
+import infra.model.response.SlackPostMessageResponse
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.runBlocking
 
 class PostSlackMessageCommandServiceImpl : PostSlackMessageCommandService {
-    override fun postMessage(messages: List<SlackMessage>) {
+    override fun postMessageAsync(message: SlackMessage): Deferred<SlackPostMessageResponse> {
+        val slackMessage = SlackMessageConverter.convert(message)
 
-        val slackMessages = messages.map {
-            SlackMessageConverter.convert(it)
-        }
+        return GlobalScope.async {
+            val (_, response, result) = Fuel.post(
+                "https://slack.com/api/chat.postMessage", listOf(
+                    "token" to slackMessage.token,
+                    "channel" to slackMessage.channel,
+                    "text" to slackMessage.text
+                )
+            ).awaitStringResponseResult()
 
-        runBlocking {
-            val deferreds: List<Deferred<Unit>> = slackMessages
-                .map { message ->
-                    async {
-                        val (_, response, result) = Fuel.post(
-                            "https://slack.com/api/chat.postMessage", listOf(
-                                "token" to message.token,
-                                "channel" to message.channel,
-                                "text" to message.text
-                            )
-                        ).awaitStringResponseResult()
-
-                        result.fold(
-                            {},
-                            { error -> throw Exception("${error.message}") }
-                        )
-                    }
+            result.fold(
+                {
+                    SlackPostMessageResponse(
+                        message = "post to ${message.channel}. " +
+                                "message={${message.text}}, " +
+                                "response=${String(response.data)}"
+                    )
+                },
+                {
+                    throw SlackPostFailedException("Failed to post to ${message.channel}. message={${message.text}}")
                 }
-
-            deferreds.awaitAll()
+            )
         }
     }
 }
