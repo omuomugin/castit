@@ -1,4 +1,7 @@
-# Send Slack Message to Multiple Channel with Single Command
+# castit
+[![GitHub release](https://img.shields.io/github/v/tag/omuomugin/castit)](https://github.com/omuoomugin/castit/releases)
+
+Post Multiple Message to Multiple Channel with single command.
 
 `castit` is a tool to send slack message to multiple channel with only single command. 
 
@@ -36,7 +39,15 @@ Options:
 ```
 
 # Quick Start
-not yet distibuted with homebrew or other kind of package manager but will be doing soon.
+You can install via Homebrew
+
+```bash
+
+$ brew tap omuomugin/tap
+
+$ brew install castit
+
+```
 
 ## Getting your token for Slack
 TBD
