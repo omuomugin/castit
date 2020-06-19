@@ -1,5 +1,5 @@
 # castit
-[![GitHub release](https://img.shields.io/github/v/tag/omuomugin/castit)](https://github.com/omuoomugin/castit/releases)
+[![GitHub release](https://img.shields.io/github/v/release/omuomugin/castit)](https://github.com/omuoomugin/castit/releases)
 
 Post Multiple Message to Multiple Channel with single command.
 
